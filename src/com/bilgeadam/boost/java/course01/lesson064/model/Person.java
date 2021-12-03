@@ -1,6 +1,7 @@
 package com.bilgeadam.boost.java.course01.lesson064.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -36,7 +37,7 @@ public class Person {
 
 	public Person(String firstName, String lastName, String telephone, String street, String city, int zip,
 			LocalDate birthday) {
-		
+
 		this(firstName, lastName);
 		this.telephone.set(telephone);
 		this.street.set(street);
@@ -46,7 +47,7 @@ public class Person {
 	}
 
 	private Person(Builder builder) {
-		
+
 		this();
 		this.firstName.set(builder.firstName);
 		this.firstName.set(builder.firstName);
@@ -65,7 +66,7 @@ public class Person {
 	public StringProperty getFirstNameProperty() {
 		return this.firstName;
 	}
-	
+
 	public String getLastName() {
 		return this.lastName.get();
 	}
@@ -73,7 +74,7 @@ public class Person {
 	public StringProperty getLastNameProperty() {
 		return this.lastName;
 	}
-	
+
 	public String getTelephone() {
 		return this.telephone.get();
 	}
@@ -92,6 +93,15 @@ public class Person {
 
 	public LocalDate getBirthday() {
 		return this.birthday.get();
+	}
+
+	public String getFormattedDate(LocalDate date) {
+		String                  retVal         = "";
+		final String            DATE_FORMAT    = "dd.MMM.yyyy";
+		final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
+		if (date != null)
+			retVal = DATE_FORMATTER.format(date);
+		return retVal;
 	}
 
 	@Override

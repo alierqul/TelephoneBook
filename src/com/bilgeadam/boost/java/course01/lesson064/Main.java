@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+@SuppressWarnings("exports")
 public class Main extends Application {
 	private Stage      primary;
 	private BorderPane rootPane;
@@ -27,7 +28,7 @@ public class Main extends Application {
 		return this.people;
 	}
 	
-	@Override
+	@Override  
 	public void start(Stage primaryStage) {
 		initPrimaryStage(primaryStage);
 		initRootLayout();
@@ -95,5 +96,9 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public Stage getPrimary() {
+		return this.primary;
 	}
 }
