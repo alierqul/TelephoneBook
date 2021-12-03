@@ -3,6 +3,7 @@ package com.bilgeadam.boost.java.course01.lesson064;
 import java.io.IOException;
 
 import com.bilgeadam.boost.java.course01.lesson064.model.Person;
+import com.bilgeadam.boost.java.course01.lesson064.view.PersonOverviewController;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -19,7 +20,7 @@ public class Main extends Application {
 	private BorderPane rootPane;
 	private ObservableList<Person> people;
 
-	private ObservableList<Person> getPeople() {
+	public ObservableList<Person> getPeople() {
 		if (this.people == null) {
 			this.people = FXCollections.observableArrayList(); 
 		}
@@ -50,9 +51,9 @@ public class Main extends Application {
 		this.getPeople().add(new Person.Builder().firstName("Sercan").lastName("Üstün").build());
 		this.getPeople().add(new Person.Builder().firstName("Burak").lastName("Güneþ").city("Samatya").build());
 		
-		for (Person person : people) {
-			System.out.println(person);
-		}
+//		for (Person person : people) {
+//			System.out.println(person);
+//		}
 	}
 
 	private void initPrimaryStage(Stage primaryStage) {
@@ -68,6 +69,10 @@ public class Main extends Application {
 			AnchorPane personOverview = (AnchorPane)loader.load();	// FXML'i okuyoruz
 			this.rootPane.setCenter(personOverview);				// RootPane borderpane cinsinden olduðundan ALT/ÜST/SAÐ/SOL/ORTA alanlarý bulunmakta
 																	// ORTA'ya personoverview'u ekliyor
+			
+			PersonOverviewController controller = loader.getController();  	// FXML dosyasý içinde tanýmlý controller'ý dinamik
+																			// bir þekilde sýnýfýmýza dahil ediyoruz
+			controller.setMain(this);		// controller'a main',in içerdiði bilgiler iletiliyor
 		}
 		catch (IOException ex) {
 			ex.printStackTrace();

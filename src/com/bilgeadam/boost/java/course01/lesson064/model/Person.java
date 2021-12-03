@@ -62,10 +62,18 @@ public class Person {
 		return this.firstName.get();
 	}
 
+	public StringProperty getFirstNameProperty() {
+		return this.firstName;
+	}
+	
 	public String getLastName() {
 		return this.lastName.get();
 	}
 
+	public StringProperty getLastNameProperty() {
+		return this.lastName;
+	}
+	
 	public String getTelephone() {
 		return this.telephone.get();
 	}
