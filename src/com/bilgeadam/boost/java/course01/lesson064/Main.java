@@ -28,9 +28,9 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		initTelephoneEntries();
 		initPrimaryStage(primaryStage);
 		initRootLayout();
+		initTelephoneEntries();
 		showPersonOverview();
 	}
 
@@ -49,6 +49,10 @@ public class Main extends Application {
 		this.getPeople().add(new Person.Builder().firstName("Recep").lastName("Ergan").build());
 		this.getPeople().add(new Person.Builder().firstName("Sercan").lastName("Üstün").build());
 		this.getPeople().add(new Person.Builder().firstName("Burak").lastName("Güneþ").city("Samatya").build());
+		
+		for (Person person : people) {
+			System.out.println(person);
+		}
 	}
 
 	private void initPrimaryStage(Stage primaryStage) {

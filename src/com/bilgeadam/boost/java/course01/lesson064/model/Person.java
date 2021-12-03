@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Person {
@@ -15,17 +18,26 @@ public class Person {
 	private IntegerProperty           zip;
 	private ObjectProperty<LocalDate> birthday;
 
+	private Person() {
+		this.firstName = new SimpleStringProperty();
+		this.lastName  = new SimpleStringProperty();
+		this.telephone = new SimpleStringProperty();
+		this.street    = new SimpleStringProperty();
+		this.city      = new SimpleStringProperty();
+		this.zip       = new SimpleIntegerProperty();
+		this.birthday  = new SimpleObjectProperty<LocalDate>(null);
+	}
+
 	public Person(String firstName, String lastName) {
-		super();
+		this();
 		this.firstName.set(firstName);
 		this.lastName.set(lastName);
 	}
 
-	public Person(String firstName, String lastName, String telephone, String street,
-			String city, int zip, LocalDate birthday) {
-		super();
-		this.firstName.set(firstName);
-		this.lastName.set(lastName);
+	public Person(String firstName, String lastName, String telephone, String street, String city, int zip,
+			LocalDate birthday) {
+		
+		this(firstName, lastName);
 		this.telephone.set(telephone);
 		this.street.set(street);
 		this.city.set(city);
@@ -34,6 +46,9 @@ public class Person {
 	}
 
 	private Person(Builder builder) {
+		
+		this();
+		this.firstName.set(builder.firstName);
 		this.firstName.set(builder.firstName);
 		this.lastName.set(builder.lastName);
 		this.telephone.set(builder.telephone);
@@ -41,55 +56,6 @@ public class Person {
 		this.city.set(builder.city);
 		this.zip.set(builder.zip);
 		this.birthday.set(builder.birthday);
-	}
-
-	public static class Builder { // inner class
-		private String    firstName;
-		private String    lastName;
-		private String    telephone;
-		private String    street;
-		private String    city;
-		private int       zip;
-		private LocalDate birthday;
-
-		public Builder firstName(String firstName) {
-			this.firstName = firstName;
-			return this;
-		}
-
-		public Builder lastName(String lastName) {
-			this.lastName = lastName;
-			return this;
-		}
-
-		public Builder telephone(String telephone) {
-			this.telephone = telephone;
-			return this;
-		}
-
-		public Builder street(String street) {
-			this.street = street;
-			return this;
-		}
-
-		public Builder city(String city) {
-			this.city = city;
-			return this;
-		}
-
-		private Builder zip(int zip) {
-			this.zip = zip;
-			return this;
-		}
-
-		public Builder birthday(LocalDate birthday) {
-			this.birthday = birthday;
-			return this;
-		}
-
-		public Person build() {
-			return new Person(this); // this bu (Builder) class'tan üretilmiþ bir nesne
-		}
 	}
 
 	public String getFirstName() {
@@ -120,4 +86,59 @@ public class Person {
 		return this.birthday.get();
 	}
 
+	@Override
+	public String toString() {
+		return "Person [getFirstName()=" + this.getFirstName() + ", getLastName()=" + this.getLastName()
+				+ ", getTelephone()=" + this.getTelephone() + ", getStreet()=" + this.getStreet() + ", getCity()="
+				+ this.getCity() + ", getZip()=" + this.getZip() + ", getBirthday()=" + this.getBirthday() + "]";
+	}
+
+	public static class Builder { // inner class must be public and static
+		private String    firstName = "";
+		private String    lastName  = "";
+		private String    telephone = "";
+		private String    street    = "";
+		private String    city      = "";
+		private int       zip       = 0;
+		private LocalDate birthday  = LocalDate.MIN;
+
+		public Builder firstName(String firstName) { // set metodlarý public olmalý
+			this.firstName = firstName;
+			return this;
+		}
+
+		public Builder lastName(String lastName) {
+			this.lastName = lastName;
+			return this;
+		}
+
+		public Builder telephone(String telephone) {
+			this.telephone = telephone;
+			return this;
+		}
+
+		public Builder street(String street) {
+			this.street = street;
+			return this;
+		}
+
+		public Builder city(String city) {
+			this.city = city;
+			return this;
+		}
+
+		public Builder zip(int zip) {
+			this.zip = zip;
+			return this;
+		}
+
+		public Builder birthday(LocalDate birthday) {
+			this.birthday = birthday;
+			return this;
+		}
+
+		public Person build() {
+			return new Person(this); // this bu (Builder) class'tan üretilmiþ bir nesne
+		}
+	}
 }
